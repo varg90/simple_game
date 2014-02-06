@@ -13,5 +13,11 @@ pids
 logs
 results
 
+app/css/*.css
+
 npm-debug.log
 node_modules
+
+.sass-cache
+.idea
+
