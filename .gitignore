@@ -13,7 +13,7 @@ pids
 logs
 results
 
-app/css/*.css
+app/css/**/*.css
 
 npm-debug.log
 node_modules
