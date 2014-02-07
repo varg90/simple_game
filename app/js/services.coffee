@@ -1,22 +1,30 @@
 'use strict'
-services = angular.module 'calendar.services', []
+services = angular.module 'calendar.services', ['ngResource']
 
-class Task
-  constructor: ()->
+class ObjectFactory
+  constructor: (@$resource, @urlSuffix, @idParam)->
 
-  @all: ()->
-    [
-      {
-        'title' : 'Task one'
-        'class' : '5a'
-        'teacher' : 'Mr. Jackson'
-      },
-      {
-        'title' : 'Task 2'
-        'class' : '5a'
-        'teacher' : 'Mr. Jackson'
-      },
-    ]
+  resource: ->
+    @$resource(@resourcePath(), {}, @actions())
+
+  resourcePath: ->
+    "#{@objects_name()}/:#{@idParam}#{@urlSuffix}"
+
+  actions: ->
+    all:
+      method: 'GET',
+      params: { id: 'index' },
+      transformResponse: @transformResponse
+      isArray: true
+
+  transformResponse: (data)=>
+    angular.fromJson(data)[@objects_name()]
+
+class TaskFactory extends ObjectFactory
+  objects_name: ()-> 'class_tasks'
 
 
-services.factory 'Task', -> Task
+services.factory 'TaskFactory', [
+  '$resource', 'urlSuffix', 'idParam',
+  ($resource, urlSuffix, idParam) -> new TaskFactory($resource, urlSuffix, idParam)
+]
