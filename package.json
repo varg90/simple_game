@@ -12,6 +12,6 @@
         "protractor": "~0.17.0"
     },
     "scripts": {
-        "test": "./scripts/test.sh "
+        "test": "./scripts/ci/test.sh "
     }
 }

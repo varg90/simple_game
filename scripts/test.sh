@@ -2,8 +2,6 @@
 
 BASE_DIR=`dirname $0`
 
-coffee --compile --output app/js app/js
-
 echo ""
 echo "Starting Karma Server (http://karma-runner.github.io)"
 echo "-------------------------------------------------------------------"
