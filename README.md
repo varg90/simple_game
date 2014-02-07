@@ -6,8 +6,9 @@ Trying angular js.
 ###Get started
 
 1. Install NodeJS (for testing).
-2. Make ```npm install``` from project root.
-3. Generate all assets ```./script/generate_all.sh```
+1. Make ```npm install``` from project root.
+1. Install SASS ```gem install sass``` (You will need ruby for it).
+1. Generate all assets ```./script/generate_all.sh```
 
 
 ###SASS

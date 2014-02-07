@@ -6,7 +6,6 @@ lib-cov
 *.out
 *.pid
 *.gz
-.idea
 .DS_Store
 
 pids
