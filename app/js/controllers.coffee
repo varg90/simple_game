@@ -1,4 +1,6 @@
 'use strict'
-angular.module('myApp.controllers', [])
-  .controller('MyCtrl1', [()->])
-  .controller('MyCtrl2', [()->])
+controllers = angular.module 'calendar.controllers', []
+
+controllers.controller 'Calendar', ['$scope', 'Task', ($scope, Task) ->
+    $scope.tasks = Task.all()
+  ]

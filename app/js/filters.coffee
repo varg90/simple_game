@@ -1,5 +1,5 @@
 'use strict'
-angular.module('myApp.filters', [])
+angular.module('calendar.filters', [])
   .filter('interpolate', [
     'version',
     (version) ->

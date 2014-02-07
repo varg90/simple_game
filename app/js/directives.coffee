@@ -1,5 +1,5 @@
 'use strict'
-angular.module('myApp.directives', [])
+angular.module('calendar.directives', [])
   .directive('appVersion', [
     'version',
     (version) ->
