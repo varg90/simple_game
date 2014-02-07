@@ -1,7 +1,7 @@
 'use strict'
-angular.module('myApp.derictives', [])
+angular.module('myApp.directives', [])
   .directive('appVersion', [
-    'versioin',
+    'version',
     (version) ->
       (scope, elm, attrs) -> elm.text version
   ])
