@@ -7,6 +7,7 @@ echo "Compile Coffee scripts"
 echo "-------------------------------------------------------------------"
 
 coffee --compile --output app/js app/js
+coffee --compile --output test/unit test/unit
 
 #echo ""
 #echo "Running protractor tests"

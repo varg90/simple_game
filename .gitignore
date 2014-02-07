@@ -15,6 +15,8 @@ results
 app/css/**/*.css
 app/js/**/*.js
 app/js/**/*.map
+test/unit/**/*.js
+test/unit/**/*.map
 
 npm-debug.log
 node_modules
