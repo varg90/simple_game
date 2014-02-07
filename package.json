@@ -1,13 +1,17 @@
 {
-  "name": "angularjs-seed",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
-  "devDependencies": {
-    "phantomjs" : "~1.9",
-    "karma" : "~0.10",
-    "karma-junit-reporter" : "~0.1",
-    "karma-jasmine" : "~0.1",
-    "coffee-script" : ">= 1.7",
-    "protractor" : "~0.17.0"
-  }
+    "name": "angularjs-seed",
+    "description": "A starter project for AngularJS",
+    "repository": "https://github.com/angular/angular-seed",
+    "devDependencies": {
+        "phantomjs": "~1.9",
+        "karma": "~0.10",
+        "karma-junit-reporter": "~0.1",
+        "karma-jasmine": "~0.1",
+        "karma-phantomjs-launcher": "*",
+        "coffee-script": ">= 1.7",
+        "protractor": "~0.17.0"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS ./config/karma.conf.js "
+    }
 }
