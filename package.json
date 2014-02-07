@@ -12,6 +12,6 @@
         "protractor": "~0.17.0"
     },
     "scripts": {
-        "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS ./config/karma.conf.js "
+        "test": "./scripts/test.sh "
     }
 }
