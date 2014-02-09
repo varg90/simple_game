@@ -1,21 +1,35 @@
-Search: <input ng-model="query">
-Sort by:
-<select ng-model="orderProp">
-    <option value="due_on">Due On ↑</option>
-    <option value="-due_on">Due On ↓</option>
-</select>
-Task type:
-<select ng-model="task_type">
-    <option value="">All</option>
-    <option value="Homework">Homework</option>
-    <option value="Exam">Exam</option>
-    <option value="ClassTest">Class Test</option>
-    <option value="Quiz">Quiz</option>
-</select>
+<div class="filters">
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="sr-only">Search:</label>
+            <input class="form-control" placeholder="Search" ng-model="query">
+        </div>
+
+        <div class="form-group">
+            <label>Sort by:</label>
+            <select ng-model="orderProp">
+                <option value="due_on">Due On ↑</option>
+                <option value="-due_on">Due On ↓</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Task type:</label>
+            <select ng-model="task_type">
+                <option value="">All</option>
+                <option value="Homework">Homework</option>
+                <option value="Exam">Exam</option>
+                <option value="ClassTest">Class Test</option>
+                <option value="Quiz">Quiz</option>
+            </select>
+        </div>
+    </form>
+
+</div>
+
 <div class="calendar">
     <div class="head row">
-        <div ng-repeat="day in days" class="col-md-2">
-            {{day | date:'d MMM'}}
+        <div ng-repeat="day in days" class="col-md-2" ng-class="currentDate(day)">
+            {{day | date:'EEEE, d'}}
         </div>
     </div>
     <div class="body">

@@ -1,12 +1,25 @@
 .calendar {
+  max-width: 900px;
+  margin: 0 auto;
   .head {
     text-align: center;
     font-weight: bold;
-    padding: 15px;
+    >div {
+      border: 1px dashed black;
+      border-bottom: 2px solid black;
+      padding: 10px 0;
+    }
   }
   .body {
+    padding: 0 10px;
+    background: url('/app/img/tablebg-0.png');
+    border: 1px solid $calendarBorderColor;
     .calendar-row {
-      margin-top: 10px;
+      padding-top: 10px;
+      padding-left: 15px;
+      &:last-child {
+        padding-bottom: 10px;
+      }
       .calendar-task {
         background-color: $calendarRowColor;
         padding: 5px;
@@ -14,7 +27,7 @@
       }
 
       &.ng-enter, &.ng-leave {
-        @include transition(all linear 0.5s);
+        @include transition(cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s);
       }
 
       &.ng-leave.ng-leave-active, &.ng-enter {
