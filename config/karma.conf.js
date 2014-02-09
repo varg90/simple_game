@@ -4,6 +4,7 @@ module.exports = function(config){
 
     files : [
       'app/lib/angular/angular.js',
+      'app/lib/momentjs/moment-with-langs.js',
       'app/lib/angular/angular-*.js',
       'test/lib/angular/angular-mocks.js',
       'app/js/**/*.js',

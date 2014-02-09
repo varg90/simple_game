@@ -20,7 +20,7 @@ Task type:
     </div>
     <div class="body">
         <div calendar-row class="row calendar-row"
-             ng-repeat="task in tasks | filter:query | filter:task_type | orderBy:orderProp"></div>
+             ng-repeat="task in tasks | inWeek:days | filter:query | filter:task_type  | orderBy:orderProp"></div>
     </div>
 </div>
 <ul>

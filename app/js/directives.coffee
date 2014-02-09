@@ -21,13 +21,12 @@ class CalendarRow
         break
     offset
 
-
   length: (task)=>
     issuedOn = moment(task.issued_on).toDate()
     dueOn = moment(task.due_on).toDate()
     length = 0
     for day in @days
-      if day > issuedOn and day < dueOn
+      if day >= issuedOn and day <= dueOn
         length++
     length
 

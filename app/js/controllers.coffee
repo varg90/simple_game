@@ -10,7 +10,7 @@ class CalendarController
     @scope.length = @length
 
   days: =>
-    @_days ||= (moment().isoWeekday(day).toDate() for day in [0..6])
+    @_days ||= (moment().startOf('day').isoWeekday(day).toDate() for day in [0..6])
 
 
 
