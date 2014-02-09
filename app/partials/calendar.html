@@ -1,8 +1,27 @@
-
-
+Search: <input ng-model="query">
+Sort by:
+<select ng-model="orderProp">
+    <option value="due_on">Due On ↑</option>
+    <option value="-due_on">Due On ↓</option>
+</select>
+Task type:
+<select ng-model="task_type">
+    <option value="">All</option>
+    <option value="Homework">Homework</option>
+    <option value="Exam">Exam</option>
+    <option value="ClassTest">Class Test</option>
+    <option value="Quiz">Quiz</option>
+</select>
+<div class="calendar">
+    <div class="head row">
+        <div ng-repeat="day in days" class="col-md-2">
+            {{day | date:'d MMM'}}
+        </div>
+    </div>
+    <div class="body">
+        <div calendar-row class="row calendar-row"
+             ng-repeat="task in tasks | filter:query | filter:task_type | orderBy:orderProp"></div>
+    </div>
+</div>
 <ul>
-    <li ng-repeat="task in tasks">
-        {{task.title}}
-        <p>{{task.teacher_name}}</p>
-    </li>
 </ul>

@@ -7,8 +7,9 @@ calendar.value 'urlSuffix', '.json'
 calendar.value 'idParam', 'id'
 
 calendar.config ['$routeProvider', ($routeProvider) ->
-  $routeProvider.when '/view1',
+  $routeProvider.when '/calendar',
     templateUrl: 'partials/calendar.html'
     controller: 'Calendar'
-  $routeProvider.otherwise { redirectTo: '/view1' }
+
+  $routeProvider.otherwise { redirectTo: '/calendar' }
 ]
