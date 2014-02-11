@@ -3,6 +3,7 @@ m = angular.module('calendar.filters', [])
 
 m.filter 'inWeek', ()->
   (items, days)->
+    return unless days?
     filtered = []
     firstDay = days[0]
     lastDay = days[days.length - 1]

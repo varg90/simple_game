@@ -5,11 +5,23 @@ calendar = angular.module('calendar',
 
 calendar.value 'urlSuffix', '.json'
 calendar.value 'idParam', 'id'
+calendar.value 'oAuthUrl', 'http://lvh.me:3000/api/v1/oauth/token'
+calendar.value 'resourcesUrl', 'http://lvh.me:3000/api/v1/'
 
 calendar.config ['$routeProvider', ($routeProvider) ->
   $routeProvider.when '/calendar',
     templateUrl: 'partials/calendar.html'
-    controller: 'Calendar'
+    controller: 'calendar'
+  $routeProvider.when '/',
+    templateUrl: 'partials/homepage.html'
+  $routeProvider.when '/auth',
+    controller: 'auth'
+    templateUrl: 'partials/auth.html'
 
-  $routeProvider.otherwise { redirectTo: '/calendar' }
+  $routeProvider.otherwise { redirectTo: '/' }
 ]
+
+calendar.config(['$sceDelegateProvider', ($sceDelegateProvider)->
+  $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://lvh.me:3000/**'])
+])
+

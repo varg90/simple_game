@@ -3,7 +3,7 @@
 describe 'Services', ->
   beforeEach module('calendar.services')
 
-  describe 'TaskFactory', ->
+  describe 'taskFactory', ->
 
     beforeEach ->
       @idParam = 'id'
@@ -16,7 +16,7 @@ describe 'Services', ->
         return
 
       inject ($injector)=>
-        @TaskFactory = $injector.get('TaskFactory')
+        @TaskFactory = $injector.get('taskFactory')
 
     it 'should set resources', ->
       expect(@TaskFactory.$resource).toBe(@resource)
@@ -43,7 +43,7 @@ describe 'Services', ->
         @actions =
           all:
             method: 'GET',
-            params: { id: 'index' },
+            params: { id: '' },
             transformResponse: {}
             isArray: true
 
