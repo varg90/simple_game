@@ -50,8 +50,7 @@ class oAuth
       @http.defaults.headers.common.Authorization = "Bearer #{response.access_token}"
       @deferred.resolve()
 
-    request.error (response)=>
-      @http.defaults.headers.common.Authorization = "Bearer #{response.access_token}"
+    request.error =>
       @deferred.reject()
 
 
