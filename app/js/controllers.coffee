@@ -23,7 +23,7 @@ class CalendarController
     day == moment().startOf('day').toDate() ? 'current': ''
 
 
-controllers.controller 'calendar', ['$scope', 'TaskFactory', '$routeParams', 'resourcesUrl', 'urlSuffix'
+controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', 'resourcesUrl', 'urlSuffix'
   (scope, taskFactory, $routeParams, resourcesUrl, urlSuffix) ->
     new CalendarController(scope, taskFactory, $routeParams, urlSuffix, resourcesUrl)
 ]
