@@ -33,7 +33,7 @@
             {{day | date:'EEEE, d'}}
         </div>
     </div>
-    <div class="body">
+    <div class="body" infinite-scroll='loadMore()' infinite-scroll-disabled='!factory.loadMore'>
 
         <div calendar-row class="row calendar-row"
              ng-repeat="task in tasks | filter:query | filter:task_type  | orderBy:orderProp"></div>

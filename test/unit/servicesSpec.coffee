@@ -58,3 +58,29 @@ describe 'Services', ->
         @taskFactory.model()
         expect(@resource.calls.length).toBe(1)
         expect(@resource).toHaveBeenCalledWith('path', {}, {})
+
+    describe '#_applyMetadata', ->
+      beforeEach ->
+        @data = { total_items: 20, per_page: 10, page: 1}
+        @taskFactory._applyMetadata(@data)
+
+      it 'should set current page', ->
+        expect(@taskFactory.currentPage).toBe(1)
+
+      it 'should set total items', ->
+        expect(@taskFactory.totalItems).toBe(20)
+
+      it 'should set per page', ->
+        expect(@taskFactory.perPage).toBe(10)
+
+      it 'should we need to load more', ->
+        expect(@taskFactory.loadMore).toBe(true)
+
+      describe 'no more loading', ->
+        beforeEach ->
+          @data = {total_items: 20, per_page: 10, page: 2}
+          @taskFactory._applyMetadata(@data)
+
+        it 'should not need to load more', ->
+          expect(@taskFactory.loadMore).toBe(false)
+

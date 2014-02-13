@@ -3,9 +3,12 @@ services = angular.module 'calendar.services', ['ngResource']
 
 class ObjectFactory
   constructor: (@$resource, @urlSuffix, @idParam, @url = '')->
+    @currentPage = 0
+    @loadMore = true
 
-  all: (query = {})->
-    @model().all(query)
+  all: (query = {}, callback = =>)->
+    @loadMore = false
+    @model().all(query, callback)
 
   model: ->
     @$resource("#{@resourcePath()}", {}, @actions())
@@ -21,7 +24,15 @@ class ObjectFactory
       isArray: true
 
   transformResponse: (data)=>
-    angular.fromJson(data)[@objects_name()]
+    parsed_json = angular.fromJson(data)
+    @_applyMetadata(parsed_json.metadata) if parsed_json.metadata?
+    parsed_json[@objects_name()]
+
+  _applyMetadata: (data)->
+    @currentPage = data.page
+    @totalItems = data.total_items
+    @perPage = data.per_page
+    @loadMore = (@totalItems - @currentPage * @perPage) > 0
 
 class TaskFactory extends ObjectFactory
   objects_name: ()-> 'class_tasks'

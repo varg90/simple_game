@@ -1,7 +1,7 @@
 'use strict'
 
 calendar = angular.module('calendar',
-  ['ngRoute', 'calendar.controllers', 'calendar.filters', 'calendar.services', 'calendar.directives'])
+  ['ngRoute', 'calendar.controllers', 'calendar.filters', 'calendar.services', 'calendar.directives', 'infinite-scroll'])
 
 calendar.value 'urlSuffix', '.json'
 calendar.value 'idParam', 'id'
