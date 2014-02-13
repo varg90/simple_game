@@ -4,8 +4,11 @@ services = angular.module 'calendar.services', ['ngResource']
 class ObjectFactory
   constructor: (@$resource, @urlSuffix, @idParam, @url = '')->
 
-  resource: ->
-    @$resource(@resourcePath(), {}, @actions())
+  all: (query = {})->
+    @model().all(query)
+
+  model: ->
+    @$resource("#{@resourcePath()}", {}, @actions())
 
   resourcePath: ->
     "#{@url}#{@objects_name()}/:#{@idParam}#{@urlSuffix}"

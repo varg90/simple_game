@@ -26,6 +26,7 @@
 
 </div>
 
+<span class="glyphicon glyphicon-chevron-right week-next" ng-click="nextWeek()"></span>
 <div class="calendar">
     <div class="head row">
         <div ng-repeat="day in days" class="col-md-2" ng-class="currentDate(day)">
@@ -33,7 +34,10 @@
         </div>
     </div>
     <div class="body">
+
         <div calendar-row class="row calendar-row"
-             ng-repeat="task in tasks | inWeek:days | filter:query | filter:task_type  | orderBy:orderProp"></div>
+             ng-repeat="task in tasks | filter:query | filter:task_type  | orderBy:orderProp"></div>
+
     </div>
 </div>
+<span class="glyphicon glyphicon-chevron-left week-prev" ng-click="prevWeek()"></span>

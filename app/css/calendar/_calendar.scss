@@ -25,6 +25,13 @@
         background-color: $calendarRowColor;
         padding: 5px;
         font-size: 13px;
+        @include border-bottom-radius(5px);
+        @include border-top-radius(5px);
+        @include border-left-radius(5px);
+        @include border-right-radius(5px);
+        .teacher {
+          font-weight: bold;
+        }
       }
 
       &.ng-enter, &.ng-leave {
@@ -48,4 +55,21 @@
       }
     }
   }
+}
+
+
+.week-prev, .week-next {
+  cursor: pointer;
+  top: 300px;
+  position: absolute;
+  &:hover {
+    color: blue;
+  }
+}
+
+.week-next {
+  left: 948px;
+}
+.week-prev {
+  left: -20px;
 }

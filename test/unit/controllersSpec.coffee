@@ -8,14 +8,17 @@ describe 'Controllers', ->
 
     beforeEach ->
       @tasks = ['task1', 'task2']
-      @taskFactory = { resource: => all: => @tasks }
+      @taskFactory = { all: '' }
+      spyOn(@taskFactory, 'all').andReturn(@tasks)
+
+      @all = jasmine.createSpy('all')
       @resourcesUrl = 'http://host.com'
       @urlSuffix = '.json'
 
       inject ($rootScope, $controller)=>
         @scope = $rootScope.$new()
         $controller('calendar',
-          TaskFactory: @taskFactory
+          taskFactory: @taskFactory
           $scope: @scope
           $routeParams: routeParams
           resourcesUrl: @resourcesUrl

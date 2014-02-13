@@ -16,27 +16,27 @@ describe 'Services', ->
         return
 
       inject ($injector)=>
-        @TaskFactory = $injector.get('taskFactory')
+        @taskFactory = $injector.get('taskFactory')
 
     it 'should set resources', ->
-      expect(@TaskFactory.$resource).toBe(@resource)
+      expect(@taskFactory.$resource).toBe(@resource)
 
     it 'should set url suffix', ->
-      expect(@TaskFactory.urlSuffix).toBe(@urlSuffix)
+      expect(@taskFactory.urlSuffix).toBe(@urlSuffix)
 
     it 'should set id param', ->
-      expect(@TaskFactory.idParam).toBe(@idParam)
+      expect(@taskFactory.idParam).toBe(@idParam)
 
     it 'should have objects name', ->
-      expect(@TaskFactory.objects_name()).toBe('class_tasks')
+      expect(@taskFactory.objects_name()).toBe('class_tasks')
 
     it 'should set resource url', ->
-      expect(@TaskFactory.resourcePath()).toBe('class_tasks/:id.suffix')
+      expect(@taskFactory.resourcePath()).toBe('class_tasks/:id.suffix')
 
     it 'should transform response', ->
       json = "{\"class_tasks\":[\"value\"]}"
-      expect(@TaskFactory.transformResponse(json)[0]).toBe('value')
-      expect(@TaskFactory.transformResponse(json).length).toBe(1)
+      expect(@taskFactory.transformResponse(json)[0]).toBe('value')
+      expect(@taskFactory.transformResponse(json).length).toBe(1)
 
     describe '#actions', ->
       beforeEach ->
@@ -48,13 +48,13 @@ describe 'Services', ->
             isArray: true
 
       it 'should set resource actions', ->
-        @TaskFactory.transformResponse = {}
-        expect(@TaskFactory.actions()).toEqual(@actions)
+        @taskFactory.transformResponse = {}
+        expect(@taskFactory.actions()).toEqual(@actions)
 
     describe '#resource', ->
       it 'should call $resource', ->
-        @TaskFactory.resourcePath = -> 'path'
-        @TaskFactory.actions = -> {}
-        @TaskFactory.resource()
+        @taskFactory.resourcePath = -> 'path'
+        @taskFactory.actions = -> {}
+        @taskFactory.model()
         expect(@resource.calls.length).toBe(1)
         expect(@resource).toHaveBeenCalledWith('path', {}, {})
