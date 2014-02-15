@@ -10,6 +10,7 @@ describe 'Controllers', ->
       @tasks = ['task1', 'task2']
       @taskFactory = { all: => @tasks }
       @location = { path: {} }
+      @oAuth = { authenticated: true }
 
       @resourcesUrl = 'http://host.com'
       @urlSuffix = '.json'
@@ -39,25 +40,14 @@ describe 'Controllers', ->
       beforeEach ->
         routeParams = {store: 'api'}
 
-      describe 'authenticated', ->
-        @oAuth = { authenticated: true }
+      it 'should get tasks', ->
+        expect(@scope.tasks).toBe(@tasks)
 
-        it 'should get tasks', ->
-          expect(@scope.tasks).toBe(@tasks)
+      it 'should set url', ->
+        expect(@taskFactory.url).toBe(@resourcesUrl)
 
-        it 'should set url', ->
-          expect(@taskFactory.url).toBe(@resourcesUrl)
-
-        it 'should set url', ->
-          expect(@taskFactory.urlSuffix).toBe('')
-
-      describe 'not authenticated', ->
-        beforeEach ->
-          @oAuth = { authenticated: false }
-          spyOn(@location, 'path')
-
-        it 'should redirect', ->
-          expect(@location.path).toHaveBeenCalledWith('/auth')
+      it 'should set url', ->
+        expect(@taskFactory.urlSuffix).toBe('')
 
 
 
