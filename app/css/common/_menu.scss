@@ -1,4 +1,9 @@
 .menu {
   background-color: $menuColor;
-  height: 30px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 42px;
+  a {
+    text-decoration: none;
+  }
 }
