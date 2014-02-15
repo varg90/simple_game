@@ -1,5 +1,5 @@
 'use strict'
-m = angular.module('calendar.filters', [])
+m = angular.module 'calendar.filters'
 
 m.filter 'inWeek', ()->
   (items, days)->

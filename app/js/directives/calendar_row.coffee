@@ -1,5 +1,5 @@
 'use strict'
-m = angular.module('calendar.directives', [])
+m = angular.module 'calendar.directives'
 
 class CalendarRow
   templateUrl: 'partials/calendar_row.html'

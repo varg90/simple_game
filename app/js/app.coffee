@@ -3,6 +3,11 @@
 calendar = angular.module('calendar',
   ['ngRoute', 'calendar.controllers', 'calendar.filters', 'calendar.services', 'calendar.directives', 'infinite-scroll'])
 
+angular.module 'calendar.controllers', ['ngAnimate']
+angular.module 'calendar.directives', []
+angular.module 'calendar.services', ['ngResource']
+angular.module 'calendar.filters', []
+
 calendar.value 'urlSuffix', '.json'
 calendar.value 'idParam', 'id'
 calendar.value 'oAuthUrl', 'http://lvh.me:3000/api/v1/oauth/token'
