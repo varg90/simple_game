@@ -18,6 +18,8 @@ app/js/**/*.map
 test/unit/**/*.js
 test/unit/**/*.map
 
+app/lib
+
 npm-debug.log
 node_modules
 

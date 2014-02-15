@@ -26,7 +26,6 @@ class ObjectFactory
       @url = ''
       @urlSuffix = @defaultUrlSuffix
 
-
   actions: ->
     all:
       method: 'GET',

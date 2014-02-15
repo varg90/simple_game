@@ -9,7 +9,8 @@
         "karma-jasmine": "~0.1",
         "karma-phantomjs-launcher": "*",
         "coffee-script": ">= 1.7",
-        "protractor": "~0.17.0"
+        "protractor": "~0.17.0",
+        "bower": "*"
     },
     "scripts": {
         "test": "./scripts/ci/test.sh "
