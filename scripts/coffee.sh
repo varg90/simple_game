@@ -1,3 +1,3 @@
 #!/bin/bash
 
-coffee --watch --compile --output app/js app/js
+./node_modules/.bin/coffee --watch --compile --output app/js app/js
