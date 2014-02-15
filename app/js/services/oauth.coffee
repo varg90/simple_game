@@ -14,7 +14,7 @@ class oAuth
       grant_type: 'password'
       client_id: '123'
       client_secret: '123'
-      username: 'username_12'
+      username: 'username_1'
       password: 'password'
     @deferred.promise
 

@@ -5,6 +5,7 @@ module.exports = function(config){
     files : [
       'app/lib/angular/angular.js',
       'app/lib/angular-*/angular-*.js',
+      'app/lib/angular-ui-date/src/date.js',
       'app/lib/momentjs/moment.js',
       'app/js/**/*.js',
       'test/unit/**/*.js'

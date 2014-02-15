@@ -3,8 +3,8 @@
 calendar = angular.module('calendar',
   ['ngRoute', 'calendar.controllers', 'calendar.filters', 'calendar.services', 'calendar.directives', 'infinite-scroll'])
 
-angular.module 'calendar.controllers', ['ngAnimate']
-angular.module 'calendar.directives', []
+angular.module 'calendar.controllers', ['ngAnimate', 'ui.date']
+angular.module 'calendar.directives', ['ui.date']
 angular.module 'calendar.services', ['ngResource']
 angular.module 'calendar.filters', []
 

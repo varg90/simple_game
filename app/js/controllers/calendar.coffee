@@ -3,12 +3,15 @@ controllers = angular.module 'calendar.controllers'
 
 
 class CalendarController
-  constructor: (@scope, @taskFactory, @params, @location)->
-    @scope.days = @days()
+  constructor: (@scope, @taskFactory, @params, @location, @week)->
+    @scope.week = week
     @taskFactory.setIsApi(@params.store == 'api')
 
+    @scope.$watch 'date', (newDate)=>
+      @loadWeekTasks(newDate)
+
     if @params.date?
-      @loadWeek(moment(@params.date))
+      @scope.date = moment(@params.date).toDate()
 
     @scope.offset = @offset
     @scope.length = @length
@@ -20,24 +23,21 @@ class CalendarController
 
     @reloadTasks()
 
-  days: (startsOn = new Date)=>
-    @_days = (moment(startsOn).startOf('day').isoWeekday(day) for day in [1..7])
-
-  currentDate: (day)=>
-    day == moment().startOf('day') ? 'current': ''
-
   nextWeek: =>
-    date = moment(@_days[@_days.length-1]).add(1, 'week')
-    @loadWeek(date)
-    @location.search('date', date.format("YYYY-MM-DD"))
+    @week.nextWeek()
+    @loadWeekTasks()
+    @setSearchParams()
 
   prevWeek: =>
-    date = moment(@_days[0]).subtract(1, 'week')
-    @loadWeek(date)
-    @location.search('date', date.format("YYYY-MM-DD"))
+    @week.prevWeek()
+    @loadWeekTasks()
+    @setSearchParams()
 
-  loadWeek: (date)=>
-    @scope.days = @days(date)
+  setSearchParams: =>
+    @location.search('date', @week.firstDay().format("YYYY-MM-DD"))
+
+  loadWeekTasks: (date = null)=>
+    @week.updateDays(date) if date
     @taskFactory.resetPagination()
     @reloadTasks()
 
@@ -46,8 +46,8 @@ class CalendarController
 
   dateFilterParams: =>
     between_dates:
-      start_date: @_days[0].format("YYYY-MM-DD")
-      end_date: @_days[@_days.length-1].format("YYYY-MM-DD")
+      start_date: @week.firstDay().format("YYYY-MM-DD")
+      end_date: @week.lastDay().format("YYYY-MM-DD")
 
   loadMore: =>
     params = @dateFilterParams()
@@ -57,9 +57,9 @@ class CalendarController
   appendTasks: (tasks)=>
     @scope.tasks = @scope.tasks.concat(tasks)
 
-controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', '$location', 'oAuth'
-  (scope, taskFactory, $routeParams, $location, oAuth) ->
+controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', '$location', 'oAuth', 'week'
+  (scope, taskFactory, $routeParams, $location, oAuth, week) ->
     return $location.path('/auth') if $routeParams.store == 'api' and not oAuth.authenticated
 
-    new CalendarController(scope, taskFactory, $routeParams, $location)
+    new CalendarController(scope, taskFactory, $routeParams, $location, week)
 ]

@@ -117,3 +117,6 @@ describe 'Services', ->
         it 'should not need to load more', ->
           expect(@taskFactory.loadMore).toBe(false)
 
+
+
+

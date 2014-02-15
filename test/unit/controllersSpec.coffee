@@ -12,6 +12,7 @@ describe 'Controllers', ->
       spyOn(@taskFactory, 'setIsApi')
       @location = { path: {} }
       @oAuth = { authenticated: true }
+      @week = { firstDay: (=> { format: => 'Date' }), lastDay: (=> { format: => 'Date' }) }
 
       inject ($rootScope, $controller)=>
         @scope = $rootScope.$new()
@@ -21,6 +22,7 @@ describe 'Controllers', ->
           $routeParams: routeParams
           $location: @location
           oAuth: @oAuth
+          week: @week
         )
 
     describe 'local', ->
