@@ -26,6 +26,6 @@ Read more on [SASS documentation](http://sass-lang.com/documentation/file.SASS_R
 
 We are using [CoffeeScript](http://coffeescript.org/).
 
-Just run ```./scripts/coffee.sh``` to turn on automated js files conversation from coffee format.
+Just run ```./scripts/coffee.sh``` to turn on automated js files generation from coffee format.
 
 
