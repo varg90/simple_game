@@ -30,7 +30,7 @@
 <div class="calendar">
     <div class="head row">
         <div ng-repeat="day in days" class="col-md-2" ng-class="currentDate(day)">
-            {{day | date:'EEEE, d'}}
+            {{day.format('ddd, Do')}}
         </div>
     </div>
     <div class="body" infinite-scroll='loadMore()' infinite-scroll-disabled='!factory.loadMore'>

@@ -23,6 +23,10 @@ class ObjectFactory
       transformResponse: @transformResponse
       isArray: true
 
+  resetPagination: ()->
+    @currentPage = 0
+    @loadMore = true
+
   transformResponse: (data)=>
     parsed_json = angular.fromJson(data)
     @_applyMetadata(parsed_json.metadata) if parsed_json.metadata?
@@ -47,6 +51,7 @@ services.factory 'taskFactory', [
 class oAuth
   constructor: (@http, @url, q)->
     @deferred = q.defer()
+    @authenticated = false
 
   promise: ->
     @deferred.promise
@@ -62,9 +67,11 @@ class oAuth
 
     request.success (response)=>
       @http.defaults.headers.common.Authorization = "Bearer #{response.access_token}"
+      @authenticated = true
       @deferred.resolve()
 
     request.error =>
+      @authenticated = false
       @deferred.reject()
 
 

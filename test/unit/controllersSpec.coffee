@@ -8,13 +8,11 @@ describe 'Controllers', ->
 
     beforeEach ->
       @tasks = ['task1', 'task2']
-      @taskFactory = { all: '' }
-      spyOn(@taskFactory, 'all').andReturn(@tasks)
+      @taskFactory = { all: => @tasks }
+      @location = { path: {} }
 
-      @all = jasmine.createSpy('all')
       @resourcesUrl = 'http://host.com'
       @urlSuffix = '.json'
-
       inject ($rootScope, $controller)=>
         @scope = $rootScope.$new()
         $controller('calendar',
@@ -23,6 +21,8 @@ describe 'Controllers', ->
           $routeParams: routeParams
           resourcesUrl: @resourcesUrl
           urlSuffix: @urlSuffix
+          $location: @location
+          oAuth: @oAuth
         )
 
     describe 'local', ->
@@ -39,14 +39,27 @@ describe 'Controllers', ->
       beforeEach ->
         routeParams = {store: 'api'}
 
-      it 'should get tasks', ->
-        expect(@scope.tasks).toBe(@tasks)
+      describe 'authenticated', ->
+        @oAuth = { authenticated: true }
 
-      it 'should set url', ->
-        expect(@taskFactory.url).toBe(@resourcesUrl)
+        it 'should get tasks', ->
+          expect(@scope.tasks).toBe(@tasks)
 
-      it 'should set url', ->
-        expect(@taskFactory.urlSuffix).toBe('')
+        it 'should set url', ->
+          expect(@taskFactory.url).toBe(@resourcesUrl)
+
+        it 'should set url', ->
+          expect(@taskFactory.urlSuffix).toBe('')
+
+      describe 'not authenticated', ->
+        beforeEach ->
+          @oAuth = { authenticated: false }
+          spyOn(@location, 'path')
+
+        it 'should redirect', ->
+          expect(@location.path).toHaveBeenCalledWith('/auth')
+
+
 
   describe 'auth', ->
     beforeEach ->
@@ -79,7 +92,7 @@ describe 'Controllers', ->
       it 'should set change location', ->
         @authController.success()
         expect(@location.path).toHaveBeenCalledWith('/calendar')
-        expect(@search.search).toHaveBeenCalledWith(store: 'api')
+        expect(@search.search).toHaveBeenCalledWith('store', 'api')
 
 
 

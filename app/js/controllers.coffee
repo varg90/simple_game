@@ -3,7 +3,7 @@ controllers = angular.module 'calendar.controllers', ['ngAnimate']
 
 
 class CalendarController
-  constructor: (@scope, @taskFactory, @params, urlSuffix, resourcesUrl)->
+  constructor: (@scope, @taskFactory, @params, urlSuffix, resourcesUrl, @location)->
     @scope.days = @days()
     if @params.store == 'api'
       @taskFactory.url = resourcesUrl
@@ -12,6 +12,9 @@ class CalendarController
       @taskFactory.url = ''
       @taskFactory.urlSuffix = urlSuffix
 
+    if @params.date?
+      @loadWeek(moment(@params.date))
+
     @scope.offset = @offset
     @scope.length = @length
     @scope.currentDate = @currentDate
@@ -19,22 +22,28 @@ class CalendarController
     @scope.nextWeek = @nextWeek
     @scope.prevWeek = @prevWeek
     @scope.loadMore = @loadMore
-    @scope.tasks = []
 
-  days: (startsOn = new Date)=>
-    @_days = (moment(startsOn).startOf('day').isoWeekday(day).toDate() for day in [1..7])
-
-  currentDate: (day)=>
-    day == moment().startOf('day').toDate() ? 'current': ''
-
-  nextWeek: =>
-    firstDay = moment(@_days[@_days.length-1]).add(1, 'day').toDate()
-    @scope.days = @days(firstDay)
     @reloadTasks()
 
+  days: (startsOn = new Date)=>
+    @_days = (moment(startsOn).startOf('day').isoWeekday(day) for day in [1..7])
+
+  currentDate: (day)=>
+    day == moment().startOf('day') ? 'current': ''
+
+  nextWeek: =>
+    date = moment(@_days[@_days.length-1]).add(1, 'week')
+    @loadWeek(date)
+    @location.search('date', date.format("YYYY-MM-DD"))
+
   prevWeek: =>
-    lastDay = moment(@_days[0]).subtract(1, 'day').toDate()
-    @scope.days = @days(lastDay)
+    date = moment(@_days[0]).subtract(1, 'week')
+    @loadWeek(date)
+    @location.search('date', date.format("YYYY-MM-DD"))
+
+  loadWeek: (date)=>
+    @scope.days = @days(date)
+    @taskFactory.resetPagination()
     @reloadTasks()
 
   reloadTasks: =>
@@ -42,18 +51,22 @@ class CalendarController
 
   dateFilterParams: =>
     between_dates:
-      start_date: @_days[0]
-      end_date: @_days[@_days.length-1]
+      start_date: @_days[0].format("YYYY-MM-DD")
+      end_date: @_days[@_days.length-1].format("YYYY-MM-DD")
 
   loadMore: =>
     params = @dateFilterParams()
     params.page = @taskFactory.currentPage + 1
-    @taskFactory.all params, (tasks)=>
-      @scope.tasks = @scope.tasks.concat(tasks)
+    @taskFactory.all params, @appendTasks
 
-controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', 'resourcesUrl', 'urlSuffix'
-  (scope, taskFactory, $routeParams, resourcesUrl, urlSuffix) ->
-    new CalendarController(scope, taskFactory, $routeParams, urlSuffix, resourcesUrl)
+  appendTasks: (tasks)=>
+    @scope.tasks = @scope.tasks.concat(tasks)
+
+controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', 'resourcesUrl', 'urlSuffix', '$location', 'oAuth'
+  (scope, taskFactory, $routeParams, resourcesUrl, urlSuffix, $location, oAuth) ->
+    return $location.path('/auth') if $routeParams.store == 'api' and not oAuth.authenticated
+
+    new CalendarController(scope, taskFactory, $routeParams, urlSuffix, resourcesUrl, $location)
 ]
 
 class AuthController
@@ -61,7 +74,7 @@ class AuthController
     @oAuth.auth().then @success, @error
 
   success: =>
-    @location.path('/calendar').search(store: 'api')
+    @location.path('/calendar').search('store', 'api')
 
   error: =>
     @scope.failed = true
