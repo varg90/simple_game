@@ -19,6 +19,7 @@
     "angular-route": "*",
     "angular-animate": "*",
     "angular-resource": "*",
+    "angular-mocks": "*",
     "ngInfiniteScroll": "*",
     "jquery": "1.10.2",
     "momentjs": "*"
