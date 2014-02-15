@@ -3,14 +3,9 @@ controllers = angular.module 'calendar.controllers', ['ngAnimate']
 
 
 class CalendarController
-  constructor: (@scope, @taskFactory, @params, urlSuffix, resourcesUrl, @location)->
+  constructor: (@scope, @taskFactory, @params, @location)->
     @scope.days = @days()
-    if @params.store == 'api'
-      @taskFactory.url = resourcesUrl
-      @taskFactory.urlSuffix = ''
-    else
-      @taskFactory.url = ''
-      @taskFactory.urlSuffix = urlSuffix
+    @taskFactory.setIsApi(@params.store == 'api')
 
     if @params.date?
       @loadWeek(moment(@params.date))
@@ -62,11 +57,11 @@ class CalendarController
   appendTasks: (tasks)=>
     @scope.tasks = @scope.tasks.concat(tasks)
 
-controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', 'resourcesUrl', 'urlSuffix', '$location', 'oAuth'
-  (scope, taskFactory, $routeParams, resourcesUrl, urlSuffix, $location, oAuth) ->
+controllers.controller 'calendar', ['$scope', 'taskFactory', '$routeParams', '$location', 'oAuth'
+  (scope, taskFactory, $routeParams, $location, oAuth) ->
     return $location.path('/auth') if $routeParams.store == 'api' and not oAuth.authenticated
 
-    new CalendarController(scope, taskFactory, $routeParams, urlSuffix, resourcesUrl, $location)
+    new CalendarController(scope, taskFactory, $routeParams, $location)
 ]
 
 class AuthController

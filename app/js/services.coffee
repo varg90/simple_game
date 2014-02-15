@@ -2,9 +2,10 @@
 services = angular.module 'calendar.services', ['ngResource']
 
 class ObjectFactory
-  constructor: (@$resource, @urlSuffix, @idParam, @url = '')->
+  constructor: (@$resource, @defaultUrlSuffix, @idParam, @defaultUrl )->
     @currentPage = 0
     @loadMore = true
+    @setIsApi(false)
 
   all: (query = {}, callback = =>)->
     @loadMore = false
@@ -15,6 +16,16 @@ class ObjectFactory
 
   resourcePath: ->
     "#{@url}#{@objects_name()}/:#{@idParam}#{@urlSuffix}"
+
+  setIsApi: (isApi = true)->
+    @isApi = isApi
+    if @isApi
+      @url = @defaultUrl
+      @urlSuffix = ''
+    else
+      @url = ''
+      @urlSuffix = @defaultUrlSuffix
+
 
   actions: ->
     all:
@@ -43,8 +54,8 @@ class TaskFactory extends ObjectFactory
 
 
 services.factory 'taskFactory', [
-  '$resource', 'urlSuffix', 'idParam'
-  ($resource, urlSuffix, idParam) -> new TaskFactory($resource, urlSuffix, idParam)
+  '$resource', 'urlSuffix', 'idParam', 'resourcesUrl'
+  ($resource, urlSuffix, idParam, resourcesUrl) -> new TaskFactory($resource, urlSuffix, idParam, resourcesUrl)
 ]
 
 

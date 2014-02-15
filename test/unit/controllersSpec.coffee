@@ -8,20 +8,17 @@ describe 'Controllers', ->
 
     beforeEach ->
       @tasks = ['task1', 'task2']
-      @taskFactory = { all: => @tasks }
+      @taskFactory = { all: (=> @tasks), setIsApi: => }
+      spyOn(@taskFactory, 'setIsApi')
       @location = { path: {} }
       @oAuth = { authenticated: true }
 
-      @resourcesUrl = 'http://host.com'
-      @urlSuffix = '.json'
       inject ($rootScope, $controller)=>
         @scope = $rootScope.$new()
         $controller('calendar',
           taskFactory: @taskFactory
           $scope: @scope
           $routeParams: routeParams
-          resourcesUrl: @resourcesUrl
-          urlSuffix: @urlSuffix
           $location: @location
           oAuth: @oAuth
         )
@@ -30,11 +27,8 @@ describe 'Controllers', ->
       it 'should get tasks', ->
         expect(@scope.tasks).toBe(@tasks)
 
-      it 'should set url', ->
-        expect(@taskFactory.url).toBe('')
-
-      it 'should set url', ->
-        expect(@taskFactory.urlSuffix).toBe(@urlSuffix)
+      it 'should set is api to false', ->
+        expect(@taskFactory.setIsApi).toHaveBeenCalledWith(false)
 
     describe 'API', ->
       beforeEach ->
@@ -43,12 +37,8 @@ describe 'Controllers', ->
       it 'should get tasks', ->
         expect(@scope.tasks).toBe(@tasks)
 
-      it 'should set url', ->
-        expect(@taskFactory.url).toBe(@resourcesUrl)
-
-      it 'should set url', ->
-        expect(@taskFactory.urlSuffix).toBe('')
-
+      it 'should set is api to true', ->
+        expect(@taskFactory.setIsApi).toHaveBeenCalledWith(true)
 
 
   describe 'auth', ->

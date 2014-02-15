@@ -8,11 +8,13 @@ describe 'Services', ->
     beforeEach ->
       @idParam = 'id'
       @urlSuffix = '.suffix'
+      @resourcesUrl = 'http://test.com'
       @resource = jasmine.createSpy('$resource')
       module ($provide)=>
         $provide.value('$resource', @resource)
         $provide.value('urlSuffix', @urlSuffix)
         $provide.value('idParam', @idParam)
+        $provide.value('resourcesUrl', @resourcesUrl)
         return
 
       inject ($injector)=>
@@ -58,6 +60,37 @@ describe 'Services', ->
         @taskFactory.model()
         expect(@resource.calls.length).toBe(1)
         expect(@resource).toHaveBeenCalledWith('path', {}, {})
+
+    describe '#setIsApi', ->
+      it 'isApi false by default', ->
+        expect(@taskFactory.isApi).toBe(false)
+
+      describe 'is true', ->
+        beforeEach ->
+          @taskFactory.setIsApi(true)
+
+        it 'should change isApi to true', ->
+          expect(@taskFactory.isApi).toBe(true)
+
+        it 'should change url to default', ->
+          expect(@taskFactory.url).toBe(@resourcesUrl)
+
+        it 'should change urlSuffix to empty', ->
+          expect(@taskFactory.urlSuffix).toBe('')
+
+      describe 'is set to false', ->
+        beforeEach ->
+          @taskFactory.setIsApi(true)
+          @taskFactory.setIsApi(false)
+
+        it 'should change isApi to true', ->
+          expect(@taskFactory.isApi).toBe(false)
+
+        it 'should change url to empty', ->
+          expect(@taskFactory.url).toBe('')
+
+        it 'should change urlSuffix to default', ->
+          expect(@taskFactory.urlSuffix).toBe(@urlSuffix)
 
     describe '#_applyMetadata', ->
       beforeEach ->
