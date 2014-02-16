@@ -1,0 +1,27 @@
+.filters
+  form.form-inline
+    .form-group.calendar-date-picker(calendar-date-picker='calendar-date-picker')
+    .form-group
+      label Sort by:
+      select(ng-model='orderProp')
+        option(value='due_on') Due On ↑
+        option(value='-due_on') Due On ↓
+    .form-group
+      label Task type:
+      select(ng-model='task_type')
+        option(value='') All
+        option(value='Homework') Homework
+        option(value='Exam') Exam
+        option(value='ClassTest') Class Test
+        option(value='Quiz') Quiz
+    .form-group
+      label.sr-only Search:
+      input.form-control(placeholder='Search', ng-model='query')
+  span.glyphicon.glyphicon-chevron-right.week-next(ng-click='nextWeek()')
+  .calendar
+    .head.row
+      .col-md-2(ng-repeat='day in week.days', ng-class='week.currentDate(day)')
+        | {{day.format('dddd, Do')}}
+    .body(infinite-scroll='loadMore()', infinite-scroll-disabled='!factory.loadMore')
+      .row.calendar-row(calendar-row='calendar-row', ng-repeat='task in tasks | filter:query | filter:task_type  | orderBy:orderProp')
+  span.glyphicon.glyphicon-chevron-left.week-prev(ng-click='prevWeek()')
