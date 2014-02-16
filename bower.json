@@ -23,6 +23,7 @@
     "ngInfiniteScroll": "1.0.0",
     "jquery": "1.10.2",
     "angular-ui-date": "0.0.3",
-    "momentjs": "2.5.1"
+    "momentjs": "2.5.1",
+    "angular-moment": "0.6.2"
   }
 }
