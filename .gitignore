@@ -17,7 +17,7 @@ app/js/**/*.js
 app/js/**/*.map
 test/unit/**/*.js
 test/unit/**/*.map
-app/partials/*.html
+app/**/*.html
 
 app/lib
 

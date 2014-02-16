@@ -1,31 +1,23 @@
 simple_game
 ===========
 
+Not actually a game :smirk:
+
 Trying angular js.
 
 ###Get started
 
-1. Install NodeJS (for testing).
-1. Make ```npm install``` from project root.
-1. Run ```./node_modules/.bin/bower install``` to load all needed front-end js files.
-1. Install SASS ```gem install sass``` (You will need ruby for it).
-1. Generate all assets ```./scripts/generate_all.sh```
-1. Run web server ```./scripts/web-server.js```
+1. Install NodeJS.
+1. Run ```./scripts/install.sh``` from project root.
+1. Run web server and automated js, css, html generation: ```foreman start```
 1. Visit ```http://localhost:8000/app/index.html```
 
 
-###SASS
+###Frontend technologies
 
-We are using SASS.
+1. [SASS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
+1. [CoffeeScript](http://coffeescript.org/)
+1. [Jade](http://jade-lang.com/tutorial/)
 
-Just run ```./scripts/sass.sh``` to turn on automated css files generation.
-
-Read more on [SASS documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html) page.
-
-###CoffeeScript
-
-We are using [CoffeeScript](http://coffeescript.org/).
-
-Just run ```./scripts/coffee.sh``` to turn on automated js files generation from coffee format.
 
 
