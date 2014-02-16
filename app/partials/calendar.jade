@@ -17,11 +17,11 @@
     .form-group
       label.sr-only Search:
       input.form-control(placeholder='Search', ng-model='query')
-  span.glyphicon.glyphicon-chevron-right.week-next(ng-click='nextWeek()')
-  .calendar
-    .head.row
-      .col-md-2(ng-repeat='day in week.days', ng-class='week.currentDate(day)')
-        | {{day.format('dddd, Do')}}
-    .body(infinite-scroll='loadMore()', infinite-scroll-disabled='!factory.loadMore')
-      .row.calendar-row(calendar-row='calendar-row', ng-repeat='task in tasks | filter:query | filter:task_type  | orderBy:orderProp')
-  span.glyphicon.glyphicon-chevron-left.week-prev(ng-click='prevWeek()')
+span.glyphicon.glyphicon-chevron-right.week-next(ng-click='nextWeek()')
+.calendar
+  .head.row
+    .col-md-2(ng-repeat='day in week.days', ng-class='week.currentDate(day)')
+      | {{day.format('dddd, Do')}}
+  .body(infinite-scroll='loadMore()', infinite-scroll-disabled='!factory.loadMore')
+    .row.calendar-row(calendar-row='calendar-row', ng-repeat='task in tasks | filter:query | filter:task_type  | orderBy:orderProp')
+span.glyphicon.glyphicon-chevron-left.week-prev(ng-click='prevWeek()')

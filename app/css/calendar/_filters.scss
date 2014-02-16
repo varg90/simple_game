@@ -2,6 +2,12 @@
   margin: 10px auto;
   .calendar-date-picker {
     font-weight: bold;
+    input {
+      display: none;
+    }
+    img {
+      padding-left: 5px;
+    }
   }
   .form-group {
     margin-right: 20px;
