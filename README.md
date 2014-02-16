@@ -19,5 +19,8 @@ Trying angular js.
 1. [CoffeeScript](http://coffeescript.org/)
 1. [Jade](http://jade-lang.com/tutorial/)
 
+### Testing
+
+1. Run ```npm test```
 
 
